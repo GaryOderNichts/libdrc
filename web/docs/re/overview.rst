@@ -100,7 +100,7 @@ how it was made. There are 4 main parts in the LVC firmware:
     * i2c - I2C controller
     * ir - infrared output
     * lcd - LCD screen controller
-    * mem - unknown
+    * mem - memory allocator
     * spi - SPI controller
     * uic - SPI UIC (STM8 CPU)
     * vcapt - video capture
