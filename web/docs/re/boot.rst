@@ -4,18 +4,18 @@ GamePad boot process
 This page describes the boot process of the GamePad and the initialization of
 all the major devices.
 
-(Unconfirmed) On-chip bootloader
---------------------------------
+On-chip bootloader
+------------------
 
 The DRC-WUP SoC most likely contains some kind of on-chip bootloader whose role
 is to load the secondary boot loader from the upgradable Flash. The first 4
-bytes on the SPI Flash contain the size of the bootloader as a little endian 32
-bit integer. The bootloader itself is stored at offset 4 on the Flash, just
-after the size, and has the following structure:
+bytes on the SPI Flash contain the size of the bootloader (``N``) as a little
+endian 32 bit integer. The bootloader itself is stored at offset 4 on the
+Flash, just after the size, and has the following structure:
 
-* The first 32 bytes are the interrupt vectors and will be loaded at address 0
+* The first 64 bytes are the interrupt vectors and will be loaded at address 0
   in RAM.
-* The next ``N-32`` bytes are the bootloader code and are loaded at address
+* The next ``N`` bytes are the bootloader code and are loaded at address
   ``0x3F0000 == RAM_SIZE - 64K``.
 
 The entry point of this bootloader is the reset vector at address 0, which
