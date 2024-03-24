@@ -66,7 +66,7 @@ important and sometimes custom ICs (including 3 CPUs).
 
     The UIC also has the weird function of storing some of the configuration
     settings in a 2KB EEPROM. A description of the settings stored in that
-    EEPROM can be found in the `Settings EEPROM structure`_ section.
+    EEPROM can be found in the :doc:`Settings EEPROM structure <uic-eeprom>` section.
 
 Firmware
 --------

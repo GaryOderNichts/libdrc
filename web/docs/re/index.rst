@@ -10,4 +10,5 @@ its stock firmware and how it communicates over the network.
     wifi
     services
     hardware
+    uic-eeprom
     changelog
