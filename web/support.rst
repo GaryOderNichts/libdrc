@@ -1,5 +1,8 @@
 .. title:: Support
 
+Support
+=======
+
 .. raw:: html
 
 	<h1>Support <small>Need help?</small></h1>

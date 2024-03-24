@@ -1,5 +1,8 @@
 .. title:: Development
 
+Development
+===========
+
 .. raw:: html
 
 	<h1>Development <small>Want to join the battle?</small></h1>
