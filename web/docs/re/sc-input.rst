@@ -23,7 +23,7 @@ Input data format
 .. code-block:: c
 
     struct InputData {
-        u16 seq_id;
+        u16 seq_id; // The first/low byte of the seq_id is initialized with the fw_version
         u16 buttons;  // see ButtonsMask
         u8 power_status;  // see PowerStatusMask
         u8 battery_charge;
@@ -36,9 +36,13 @@ Input data format
         GyroscopeData gyro;
         MagnetData magnet;
         TouchscreenData touchscreen;
-        char unk0[4];
+        ExtraMagnetData extramagnet;
+        u8 mic_status;
         u8 extra_buttons;  // see ExtraButtonsMask
-        char unk1[46];
+        u8 irc_status;
+        char unk0;
+        u8 unk1;
+        char unk2[43];
         u8 fw_version_neg;  // ~fw_version
     };
 
@@ -64,6 +68,7 @@ Input data format
     enum PowerStatusMask {
         AC_PLUGGED_IN = 0x01,
         POWER_BUTTON_PRESSED = 0x02,
+        HEADPHONES_PLUGGED_IN = 0x20,
         CHARGING = 0x40,
         POWER_USB = 0x80,  // not used on retail
     };
@@ -81,7 +86,17 @@ Input data format
     };
 
     struct MagnetData {
-        char unknown[6];
+        s16 x;
+        s16 y;
+        s16 z;
+    };
+
+    struct ExtraMagnetData {
+        // These bytes are concatenated to the s16 values in MagnetData, so that each
+        // value is 24bit in total.
+        s8 x;
+        s8 y;
+        s8 z;
     };
 
     struct TouchscreenData {
@@ -97,6 +112,8 @@ Input data format
     };
 
     enum ExtraButtonsMask {
+        NFC_STATUS_MASK = 0x0F,
+        TV_MENU = 0x10,
         TV = 0x20,
         R3 = 0x40,
         L3 = 0x80,
@@ -107,11 +124,19 @@ Touchscreen extra data
 
 Each touchscreen coordinate is used to store additional information:
 
-Touchscreen pressure
+(0 - 1) Touchscreen pressure
     Stored as a 12 bit integer in the extra data of the first two points. It is
     not yet known how to translate this value to a usable pressure value -
     currently it is assumed to be a resistance value reading.
 
-UIC firmware version
+(3 - 4) Status bits
+    One bit from point 3 x and point 4 y is used for the LCD status.
+    The purpose of the other bits is unknown.
+
+(6 - 8) UIC firmware version
     16 bit integer stored in the extra data of points 6 to 8 (only one bit of
     the first coordinate of point 6 is used).
+
+(9 ) Battery and status bits
+    The x data contains the battery level.
+    The y data contains the message LED status and a bit of the LCD status.
