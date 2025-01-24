@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home &#8212; libdrc project</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=eeb27264" />
+    <link rel="stylesheet" href="_static/landing.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.0.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/jquery-1.9.1.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/x-icon" href="_static/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="_static/favicon.ico" />
+
+  </head><body>
+
+
+  <div id="navbar" class="navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="#" title="libdrc home">
+          <img class="logo" src="_static/logo_pixel.svg" width="110" height="40" alt="libdrc" onerror="this.removeAttribute('onerror'); this.src='_static/logo_pixel.png'" />
+        </a>
+        
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            <li ><a href="download.html">Download</a></li>
+            
+            <li ><a href="examples.html">Examples</a></li>
+            
+            <li ><a href="docs/index.html">Documentation</a></li>
+            
+            <li ><a href="development.html">Development</a></li>
+            
+            <li ><a href="support.html">Support</a></li>
+            
+            
+          </ul>
+
+          
+        </div>
+    </div>
+  </div>
+
+
+<div id="overall">
+<div id="landing-intro">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-md-offset-1 tshadow">
+                <h2>Bring some Wii U in your application!
+                </h2>
+                <h4>GamePad integration made easy.
+                </h4>
+                <p style="margin-top: 2em">
+                    <a href="download.html" class="btn btn-dl btn-lg"><i class="fa fa-download"></i> Download</a>
+                    <a href="examples.html" class="btn btn-learn btn-lg"><i class="fa fa-code"></i>  Learn</a>
+                </p>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div id="landing-code">
+                <div class="highlight-cpp"><div class="highlight"><pre><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">drc</span><span class="o">::</span><span class="n">Streamer</span><span class="o">&gt;</span> <span class="n">streamer</span><span class="p">(</span><span class="k">new</span> <span class="n">drc</span><span class="o">::</span><span class="n">Streamer</span><span class="p">());</span>
+<span class="n">streamer</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">();</span>
+
+<span class="c1">// I've got some video!</span>
+<span class="n">streamer</span><span class="o">-&gt;</span><span class="n">PushVidFrame</span><span class="p">(</span><span class="n">pixels</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span>
+                       <span class="n">drc</span><span class="o">::</span><span class="n">PixelFormat</span><span class="o">::</span><span class="n">kRGBA</span><span class="p">);</span>
+
+<span class="c1">// I've got some audio!</span>
+<span class="n">streamer</span><span class="o">-&gt;</span><span class="n">PushAudFrame</span><span class="p">(</span><span class="n">samples</span><span class="p">);</span>
+</pre></div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row landing-row">
+        <div class="col-md-9 text-right">
+            <h3>Open source. Community driven.</h3>
+            <p>libdrc is released under the New BSD License and developed by a
+            community of developers and reverse engineers. Whether you are
+            interested in improving performance, feature support or
+            documentation, your contribution is appreciated!
+            <br/>Note: the project is not affiliated with Nintendo<sup>®</sup>
+            and do not claim ownership on any of their trademarks (Wii U, Wii U
+            GamePad).</p>
+        </div>
+        <div class="col-md-2 text-center">
+            
+<img src="_static/img/landing-opensource.svg" width="120" height="120" alt="Open source" onerror="this.removeAttribute('onerror'); this.src='_static/img/landing-opensource.png'" />
+
+        </div>
+    </div>
+
+    <div class="row landing-row">
+        <div class="col-md-2 col-md-offset-1 text-center">
+            
+<img src="_static/img/landing-cpp.svg" width="120" height="120" alt="C++" onerror="this.removeAttribute('onerror'); this.src='_static/img/landing-cpp.png'" />
+
+        </div>
+        <div class="col-md-8">
+            <h3>Written in C++. Compatible with Linux.</h3>
+            <p>Windows and OS X support planned. Want to use C instead? Not a
+            problem, libdrc exports its main features through a thin C wrapper
+            library.</p>
+        </div>
+    </div>
+
+    <div class="row landing-row">
+        <div class="col-md-9 text-right">
+            <h3>Supports most of the major features.</h3>
+            <p>Stream audio and video to your GamePad. Buttons, sticks and
+            touchscreen work like a charm.  Accelerometer, gyroscope and
+            compass should work soon. Your imagination is the limit!</p>
+        </div>
+        <div class="col-md-2 text-center">
+            
+<img src="_static/img/landing-buttons.svg" width="120" height="120" alt="Buttons and sticks" onerror="this.removeAttribute('onerror'); this.src='_static/img/landing-buttons.png'" />
+
+        </div>
+    </div>
+
+    <div class="row landing-row">
+        <div class="col-md-2 col-md-offset-1 text-center">
+            
+<img src="_static/img/landing-threads.svg" width="120" height="120" alt="Cogs" onerror="this.removeAttribute('onerror'); this.src='_static/img/landing-threads.png'" />
+
+        </div>
+        <div class="col-md-8">
+            <h3>Multithreaded.</h3>
+            <p>Performance matters and live video encoding is expensive. libdrc
+            tries to parallelize CPU heavy tasks as much as possible to provide
+            the least overhead for applications.
+            </p>
+        </div>
+    </div>
+
+    <div class="row landing-row">
+        <div class="col-md-9 text-right">
+            <h3>Standalone, easy to integrate.</h3>
+            <p>No dependency on huge frameworks: adding basic libdrc support to
+            your existing application can be done in less than 10 minutes! Give
+            it a try.</p>
+        </div>
+        <div class="col-md-2 text-center">
+            
+<img src="_static/img/landing-standalone.svg" width="120" height="120" alt="Battery" onerror="this.removeAttribute('onerror'); this.src='_static/img/landing-standalone.png'" />
+
+        </div>
+    </div>
+
+</div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                        &copy; Copyright 2013, Mema Hacking.<br/>
+                    Powered by <a href="http://sphinx.pocoo.org/">Sphinx</a> 7.2.6.<br/>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+                <a href="#">Back to top</a>
+                
+                    <br/>
+                    
+                
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46672635-1', 'libdrc.org');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>

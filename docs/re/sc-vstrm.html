@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Video streaming protocol &#8212; libdrc project</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=eeb27264" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.0.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/jquery-1.9.1.min.js"></script>
+    <script src="../../_static/js/jquery-fix.js"></script>
+    <script src="../../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Audio streaming protocol" href="sc-astrm.html" />
+    <link rel="prev" title="Network services" href="services.html" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/x-icon" href="../../_static/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../../_static/favicon.ico" />
+
+  </head><body>
+
+  <div id="navbar" class="navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="../../index.html" title="libdrc home">
+          <img class="logo" src="../../_static/logo_pixel.svg" width="110" height="40" alt="libdrc" onerror="this.removeAttribute('onerror'); this.src='../../_static/logo_pixel.png'" />
+        </a>
+        
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            <li ><a href="../../download.html">Download</a></li>
+            
+            <li ><a href="../../examples.html">Examples</a></li>
+            
+            <li class="active"><a href="../index.html">Documentation</a></li>
+            
+            <li ><a href="../../development.html">Development</a></li>
+            
+            <li ><a href="../../support.html">Support</a></li>
+            
+            
+          </ul>
+
+          
+        </div>
+    </div>
+  </div>
+
+<div id="overall">
+<div class="container">
+    <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Video streaming protocol</a><ul>
+<li><a class="reference internal" href="#protocol-header">Protocol header</a></li>
+<li><a class="reference internal" href="#extended-header">Extended header</a></li>
+<li><a class="reference internal" href="#chunking-and-stream-reconstruction">Chunking and stream reconstruction</a></li>
+<li><a class="reference internal" href="#h-264-configuration">H.264 configuration</a></li>
+</ul>
+</li>
+</ul>
+<div class="row text-right">
+    <a href="services.html" class="btn btn-default"
+        title="Previous Chapter: Network services"><i class="fa fa-arrow-left"></i> Network services</a>
+    <a href="sc-astrm.html" class="btn btn-default"
+        title="Next Chapter: Audio streaming protocol">Audio streaming protocol <i class="fa fa-arrow-right"></i> </a>
+</div>
+  <a href="../../_sources/docs/re/sc-vstrm.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+<form action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+    </div>
+        <div class="col-md-9">
+            
+  <section id="video-streaming-protocol">
+<h1>Video streaming protocol<a class="headerlink" href="#video-streaming-protocol" title="Link to this heading">¶</a></h1>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Console Port</p></th>
+<th class="head"><p>Pad Port</p></th>
+<th class="head"><p>Direction</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>50020</p></td>
+<td><p>50120</p></td>
+<td><p>Console ↔ Pad</p></td>
+</tr>
+</tbody>
+</table>
+<p>The video streaming protocol, also known as <code class="docutils literal notranslate"><span class="pre">vstrm</span></code>, is used to stream
+compressed game video data from the Wii U to a GamePad, or to stream camera
+data from a GamePad to the Wii U. It is using H.264 with a custom wrapper
+around the VCL instead of NAL.</p>
+<p>Each packet has an 8 byte header (4 is also possible but never seen), followed
+by an 8 byte extended header, followed by the compressed video data.</p>
+<section id="protocol-header">
+<h2>Protocol header<a class="headerlink" href="#protocol-header" title="Link to this heading">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">VstrmHeader</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">magic</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">packet_type</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">seq_id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">frame_begin</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">chunk_end</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">frame_end</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">has_timestamp</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">payload_size</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">11</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// If has_timestamp is set (almost always)</span>
+<span class="w">    </span><span class="n">u32</span><span class="w"> </span><span class="n">timestamp</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<img alt="../../_images/vstrm-header.png" src="../../_images/vstrm-header.png" />
+<p>This header is then followed by an 8 byte extended header.</p>
+</section>
+<section id="extended-header">
+<h2>Extended header<a class="headerlink" href="#extended-header" title="Link to this heading">¶</a></h2>
+<p>The extended header is an 8 byte area after the <code class="docutils literal notranslate"><span class="pre">vstrm</span></code> header where options
+can be set. Each option is represented by a byte, and options are read linearly
+from the extended header until either 8 bytes were read or a <code class="docutils literal notranslate"><span class="pre">0x00</span></code> byte was
+read (signaling the end of options). Here are the known options:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option Byte</p></th>
+<th class="head"><p>Option Name</p></th>
+<th class="head"><p>Arg</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0x00</p></td>
+<td><p>End</p></td>
+<td><p>N</p></td>
+<td><p>End of options.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x80</p></td>
+<td><p>IDR</p></td>
+<td><p>N</p></td>
+<td><p>Indicated that the frame is an IDR.</p></td>
+</tr>
+<tr class="row-even"><td><p>0x81</p></td>
+<td><p>Unimplemented</p></td>
+<td><p>Y</p></td>
+<td><p>Takes one byte of argument but does
+nothing.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x82</p></td>
+<td><p>Frame Rate</p></td>
+<td><p>Y</p></td>
+<td><p>0 = 59.94Hz, 1 = 50Hz, 2 = 29.97Hz,
+3 = 25Hz.</p></td>
+</tr>
+<tr class="row-even"><td><p>0x83</p></td>
+<td><p>Force Decoding</p></td>
+<td><p>N</p></td>
+<td><p>Forces decoding even if buffer is
+too small.</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x84</p></td>
+<td><p>Unset Force Flag</p></td>
+<td><p>N</p></td>
+<td><p>Unsets the force decoding flag.</p></td>
+</tr>
+<tr class="row-even"><td><p>0x85</p></td>
+<td><p>NumMbRowsInChunk</p></td>
+<td><p>Y</p></td>
+<td><p>Usually 6 (6 * 16px * 5 chunks =
+480px).</p></td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/vstrm-ext-header.png" src="../../_images/vstrm-ext-header.png" />
+</section>
+<section id="chunking-and-stream-reconstruction">
+<h2>Chunking and stream reconstruction<a class="headerlink" href="#chunking-and-stream-reconstruction" title="Link to this heading">¶</a></h2>
+<p>A single H.264 frame is obviously not sent in one <code class="docutils literal notranslate"><span class="pre">vstrm</span></code> packet: the network
+MTU is around 1800 bytes, making it impossible to transfer most frames. To
+separate a frame into several packets, the <code class="docutils literal notranslate"><span class="pre">vstrm</span></code> protocol does the
+following:</p>
+<ul class="simple">
+<li><p>Cut each frame into 5 equal chunks. Each chunk represents a 854x96 region of
+the decoded image (6 macroblock rows).</p></li>
+<li><p>Send as many packets as needed for each chunk, but the last packet of a chunk
+needs to have the <code class="docutils literal notranslate"><span class="pre">chunk_end</span></code> flag set.</p></li>
+</ul>
+<p>On top of that, the first packet of the first chunk of a frame has the
+<code class="docutils literal notranslate"><span class="pre">frame_begin</span></code> flag set, and the last packet of the last chunk of a frame has
+the <code class="docutils literal notranslate"><span class="pre">frame_end</span></code> flag set.</p>
+</section>
+<section id="h-264-configuration">
+<h2>H.264 configuration<a class="headerlink" href="#h-264-configuration" title="Link to this heading">¶</a></h2>
+<p>TODO: see <code class="docutils literal notranslate"><span class="pre">src/video-streamer.cpp</span></code>.</p>
+</section>
+</section>
+
+
+        </div>
+          
+        
+            <div class="row text-right">
+    <a href="services.html" class="btn btn-default"
+        title="Previous Chapter: Network services"><i class="fa fa-arrow-left"></i> Network services</a>
+    <a href="sc-astrm.html" class="btn btn-default"
+        title="Next Chapter: Audio streaming protocol">Audio streaming protocol <i class="fa fa-arrow-right"></i> </a>
+</div>
+        
+    </div>
+</div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                        &copy; Copyright 2013, Mema Hacking.<br/>
+                    Powered by <a href="http://sphinx.pocoo.org/">Sphinx</a> 7.2.6.<br/>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+                <a href="#">Back to top</a>
+                
+                    <br/>
+                    
+  <a href="../../_sources/docs/re/sc-vstrm.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+                
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46672635-1', 'libdrc.org');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Installation &#8212; libdrc project</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=eeb27264" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.0.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/jquery-1.9.1.min.js"></script>
+    <script src="../_static/js/jquery-fix.js"></script>
+    <script src="../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Network configuration for Wii U GamePad &lt;-&gt; PC" href="network.html" />
+    <link rel="prev" title="Documentation" href="index.html" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/x-icon" href="../_static/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../_static/favicon.ico" />
+
+  </head><body>
+
+  <div id="navbar" class="navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="../index.html" title="libdrc home">
+          <img class="logo" src="../_static/logo_pixel.svg" width="110" height="40" alt="libdrc" onerror="this.removeAttribute('onerror'); this.src='../_static/logo_pixel.png'" />
+        </a>
+        
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            <li ><a href="../download.html">Download</a></li>
+            
+            <li ><a href="../examples.html">Examples</a></li>
+            
+            <li class="active"><a href="index.html">Documentation</a></li>
+            
+            <li ><a href="../development.html">Development</a></li>
+            
+            <li ><a href="../support.html">Support</a></li>
+            
+            
+          </ul>
+
+          
+        </div>
+    </div>
+  </div>
+
+<div id="overall">
+<div class="container">
+    <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#system-requirements">System requirements</a></li>
+<li><a class="reference internal" href="#patched-dependencies">Patched dependencies</a></li>
+<li><a class="reference internal" href="#building-libdrc">Building libdrc</a></li>
+</ul>
+</li>
+</ul>
+<div class="row text-right">
+    <a href="index.html" class="btn btn-default"
+        title="Previous Chapter: Documentation"><i class="fa fa-arrow-left"></i> Documentation</a>
+    <a href="network.html" class="btn btn-default"
+        title="Next Chapter: Network configuration for Wii U GamePad <-> PC">Network configuration for... <i class="fa fa-arrow-right"></i> </a>
+</div>
+  <a href="../_sources/docs/installation.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+<form action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+    </div>
+        <div class="col-md-9">
+            
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<section id="system-requirements">
+<h2>System requirements<a class="headerlink" href="#system-requirements" title="Link to this heading">¶</a></h2>
+<p>Building libdrc requires a few system tools and libraries to be installed:</p>
+<ul class="simple">
+<li><p>A C++11 compiler.</p></li>
+<li><p>A recent version of ffmpeg and its libraries (libavutil, libswscale).</p></li>
+<li><p>If you want to build the libdrc demos, SDL and GLEW are also required.</p></li>
+</ul>
+<p>To install a recent version of ffmpeg on Ubuntu 13.10:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="n">ppa</span><span class="p">:</span><span class="n">samrog131</span><span class="o">/</span><span class="n">ppa</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libswscale</span><span class="o">-</span><span class="n">ffmpeg</span><span class="o">-</span><span class="n">dev</span> <span class="n">libavutil</span><span class="o">-</span><span class="n">ffmpeg</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+</section>
+<section id="patched-dependencies">
+<h2>Patched dependencies<a class="headerlink" href="#patched-dependencies" title="Link to this heading">¶</a></h2>
+<p>Because the Wii U GamePad is not using completely standard H.264, a patched
+version of x264 is required to be able to build libdrc. This patched version
+can be found on <a class="reference external" href="https://bitbucket.org/memahaxx/drc-x264">memahaxx/drc-x264</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https://bitbucket.org/memahaxx/drc-x264/
+cd drc-x264
+./configure --prefix=$PATCHED_X264_PREFIX --enable-static
+make install
+</pre></div>
+</div>
+</section>
+<section id="building-libdrc">
+<h2>Building libdrc<a class="headerlink" href="#building-libdrc" title="Link to this heading">¶</a></h2>
+<p>The most recent version of libdrc can be found on the main development
+repository: <a class="reference external" href="https://bitbucket.org/memahaxx/libdrc">memahaxx/libdrc</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>git clone https://bitbucket.org/memahaxx/libdrc
+cd libdrc
+PKG_CONFIG_PATH=$PATCHED_X264_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH ./configure
+make
+</pre></div>
+</div>
+<p>You should then be able to run the libdrc demos from the <cite>demos</cite> directories.</p>
+</section>
+</section>
+
+
+        </div>
+          
+        
+            <div class="row text-right">
+    <a href="index.html" class="btn btn-default"
+        title="Previous Chapter: Documentation"><i class="fa fa-arrow-left"></i> Documentation</a>
+    <a href="network.html" class="btn btn-default"
+        title="Next Chapter: Network configuration for Wii U GamePad <-> PC">Network configuration for... <i class="fa fa-arrow-right"></i> </a>
+</div>
+        
+    </div>
+</div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                        &copy; Copyright 2013, Mema Hacking.<br/>
+                    Powered by <a href="http://sphinx.pocoo.org/">Sphinx</a> 7.2.6.<br/>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+                <a href="#">Back to top</a>
+                
+                    <br/>
+                    
+  <a href="../_sources/docs/installation.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+                
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46672635-1', 'libdrc.org');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>

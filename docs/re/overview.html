@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Overview of the internal workings &#8212; libdrc project</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=eeb27264" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.0.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/jquery-1.9.1.min.js"></script>
+    <script src="../../_static/js/jquery-fix.js"></script>
+    <script src="../../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GamePad boot process" href="boot.html" />
+    <link rel="prev" title="Reverse engineering and internal details" href="index.html" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/x-icon" href="../../_static/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../../_static/favicon.ico" />
+
+  </head><body>
+
+  <div id="navbar" class="navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="../../index.html" title="libdrc home">
+          <img class="logo" src="../../_static/logo_pixel.svg" width="110" height="40" alt="libdrc" onerror="this.removeAttribute('onerror'); this.src='../../_static/logo_pixel.png'" />
+        </a>
+        
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            <li ><a href="../../download.html">Download</a></li>
+            
+            <li ><a href="../../examples.html">Examples</a></li>
+            
+            <li class="active"><a href="../index.html">Documentation</a></li>
+            
+            <li ><a href="../../development.html">Development</a></li>
+            
+            <li ><a href="../../support.html">Support</a></li>
+            
+            
+          </ul>
+
+          
+        </div>
+    </div>
+  </div>
+
+<div id="overall">
+<div class="container">
+    <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Overview of the internal workings</a><ul>
+<li><a class="reference internal" href="#drc-and-drh">DRC and DRH</a></li>
+<li><a class="reference internal" href="#hardware">Hardware</a></li>
+<li><a class="reference internal" href="#firmware">Firmware</a></li>
+</ul>
+</li>
+</ul>
+<div class="row text-right">
+    <a href="index.html" class="btn btn-default"
+        title="Previous Chapter: Reverse engineering and internal details"><i class="fa fa-arrow-left"></i> Reverse engineering and...</a>
+    <a href="boot.html" class="btn btn-default"
+        title="Next Chapter: GamePad boot process">GamePad boot process <i class="fa fa-arrow-right"></i> </a>
+</div>
+  <a href="../../_sources/docs/re/overview.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+<form action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+    </div>
+        <div class="col-md-9">
+            
+  <section id="overview-of-the-internal-workings">
+<h1>Overview of the internal workings<a class="headerlink" href="#overview-of-the-internal-workings" title="Link to this heading">¶</a></h1>
+<section id="drc-and-drh">
+<h2>DRC and DRH<a class="headerlink" href="#drc-and-drh" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt><strong>DRC</strong></dt><dd><p>Codename for the main Wii U GamePad CPU. It is used in this documentation
+and libdrc as a short name for the Wii U GamePad.</p>
+</dd>
+<dt><strong>DRH</strong></dt><dd><p>The small part of the Wii U console that handles communication with the
+GamePad. It is very similar to the DRC internally and acts very separately
+from the rest of the console. It communicates with IOSu (the Wii U
+operating system) via USB.</p>
+</dd>
+</dl>
+</section>
+<section id="hardware">
+<h2>Hardware<a class="headerlink" href="#hardware" title="Link to this heading">¶</a></h2>
+<p>The Wii U GamePad is a fairly complicated piece of hardware, containing several
+important and sometimes custom ICs (including 3 CPUs).</p>
+<img alt="../../_images/drc-overview.png" src="../../_images/drc-overview.png" />
+<dl>
+<dt><strong>DRC-WUP</strong></dt><dd><p>This is the main chip that runs the GamePad firmware. It is also referred
+to as “the ARM9” or “the LVC” in this documentation (LVC is the name of the
+firmware unit ran by DRC-WUP).</p>
+<p>This SoC is based on an ARM926EJ-S CPU and seems to be custom made for this
+device. It presents no external markings that would allow identification of
+a designed/manufacturer, but it is assumed to have been designed by
+MegaChips Corporation. The hardware H.264 decoder present inside seems to
+also be of a custom design.</p>
+<p>It is connected directly to some components via I2C and GPIOs, but it
+relies a lot on the UIC, which it communicates with over a SPI bus.</p>
+<p>It is assumed to contain a very simple boot ROM that reads a secondary
+bootloader (SPL) from the Flash. The <a class="reference internal" href="boot.html"><span class="doc">Boot process</span></a> section
+goes more in details about this.</p>
+</dd>
+<dt><strong>BCM4319XKUBG</strong></dt><dd><p>A Broadcom Wi-Fi chip that is not so custom - it was actually used in a few
+other products, including the Boxee TV box. The firmware running on it is a
+fairly standard Broadcom SDIO chip firmware with very slight alterations
+from Nintendo. The <a class="reference internal" href="wifi.html"><span class="doc">Wi-Fi Peculiarities</span></a> section explains these
+changes.</p>
+<p>It is capable of 802.11n on 5GHz frequency bands, which is the requirement
+to communicate with a Wii U console.</p>
+<p>The firmware on this Broadcom chip runs on a Cortex-M3 CPU, which is
+amusingly more recent than the ARM926EJ-S running the main firmware.</p>
+</dd>
+<dt><strong>UIC-WUP</strong></dt><dd><p>A small embedded chip based on an STM8 CPU. It runs its own firmware
+loaded from an on-chip EEPROM (upgradable). Its main role is to communicate
+with all the input devices (buttons, analog sticks, as well as the more
+complicated ICs like compass, accelerometer, gyroscope and touchscreen
+controller) and with the Power Management IC (PMIC) that handles power
+control on the board (battery charge, as well as status LEDs).</p>
+<p>It communicates with the LVC over a SPI bus (on which it is slave). A
+simple request-reply protocol is used to perform several actions.</p>
+<p>The UIC also has the weird function of storing some of the configuration
+settings in a 2KB EEPROM. A description of the settings stored in that
+EEPROM can be found in the <a class="reference internal" href="uic-eeprom.html"><span class="doc">Settings EEPROM structure</span></a> section.</p>
+</dd>
+</dl>
+</section>
+<section id="firmware">
+<h2>Firmware<a class="headerlink" href="#firmware" title="Link to this heading">¶</a></h2>
+<p>The most important part of the Wii U GamePad firmware is the <code class="docutils literal notranslate"><span class="pre">LVC_</span></code> part,
+which contains the code running on the ARM9 CPU. This firmware is based on the
+eForce operating system, a real time operating system following the <a class="reference external" href="http://www.ertl.jp/ITRON/SPEC/FILE/mitron-400e.pdf">µITRON 4.0
+specification</a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ASSERT</span></code> macros used throughout the LVC firmware code also references the
+source file names, giving a good idea of the structure of the firmware code and
+how it was made. There are 4 main parts in the LVC firmware:</p>
+<dl class="simple">
+<dt><strong>Drivers</strong></dt><dd><p>Handle communication with the hardware as well as internal synchronization
+and callback mechanisms. The following drivers are present in the latest
+version of the Wii U GamePad firmware:</p>
+<ul class="simple">
+<li><p>aamp - audio amplifier</p></li>
+<li><p>acapt - audio capture</p></li>
+<li><p>aout - audio output</p></li>
+<li><p>blit - screen surface blit</p></li>
+<li><p>cmos - video camera</p></li>
+<li><p>dma - generic DMA handling library</p></li>
+<li><p>evt - generic event/callback library</p></li>
+<li><p>fifo - unknown</p></li>
+<li><p>flash - SPI flash</p></li>
+<li><p>gpio - generic GPIO management library</p></li>
+<li><p>i2c - I2C controller</p></li>
+<li><p>ir - infrared output</p></li>
+<li><p>lcd - LCD screen controller</p></li>
+<li><p>mem - memory allocator</p></li>
+<li><p>spi - SPI controller</p></li>
+<li><p>uic - SPI UIC (STM8 CPU)</p></li>
+<li><p>vcapt - video capture</p></li>
+<li><p>vout - video decoding and output</p></li>
+<li><p>wifi - Wi-Fi networking</p></li>
+</ul>
+</dd>
+<dt><strong>Services</strong></dt><dd><p>Network related processes that are either servers or clients and handle
+protocol related work: crafting and decoding packet, validating data, then
+passing it further down the stack to a manager that will handle the request
+if needed. The following services are present in the latest version of the
+Wii U GamePad firmware:</p>
+<ul class="simple">
+<li><p>astrm - audio streaming protocol</p></li>
+<li><p>cmd - request-reply/light RPC protocol</p></li>
+<li><p>hiddat - input streaming protocol</p></li>
+<li><p>msg - broadcast/inter-GamePads communication protocol</p></li>
+<li><p>vstrm - video streaming protocol</p></li>
+<li><p>wii - unknown</p></li>
+</ul>
+</dd>
+<dt><strong>Managers</strong></dt><dd><p>Background processes often getting data from either drivers or services.
+They keep track of state and handle most of the work that is not done in
+drivers. The following managers are present in the latest version of the
+Wii U GamePad firmware:</p>
+<ul class="simple">
+<li><p>cmd - takes requests from the cmd service and sends replies</p></li>
+<li><p>con - handles low-level network (Wi-Fi layer)</p></li>
+<li><p>devif - unknown</p></li>
+<li><p>draw - handles local image drawing</p></li>
+<li><p>gamectrl - unknown</p></li>
+<li><p>ictag - contains a NFC stack to handle requests from the cmd manager</p></li>
+<li><p>ir - handles IR communication</p></li>
+<li><p>msg - handles messages from the msg service</p></li>
+<li><p>nvram - handles Flash and firmware management (upgrade, etc.)</p></li>
+<li><p>nwk - handles high-level network (IP/UDP layer)</p></li>
+<li><p>resource - handles resource loading from the Flash</p></li>
+<li><p>sound - handles sound stream playback</p></li>
+<li><p>state - unknown</p></li>
+<li><p>sync - unknown</p></li>
+<li><p>time - unknown</p></li>
+<li><p>userif - local parsing of input data (for on-GamePad applications)</p></li>
+<li><p>video - handles video stream decoding and playback</p></li>
+</ul>
+</dd>
+<dt><strong>Application</strong></dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">main</span></code> part of the firmware. It is a simple state machine that
+decides what to do at every moment and what managers, services and drivers
+to initialize.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+        </div>
+          
+        
+            <div class="row text-right">
+    <a href="index.html" class="btn btn-default"
+        title="Previous Chapter: Reverse engineering and internal details"><i class="fa fa-arrow-left"></i> Reverse engineering and...</a>
+    <a href="boot.html" class="btn btn-default"
+        title="Next Chapter: GamePad boot process">GamePad boot process <i class="fa fa-arrow-right"></i> </a>
+</div>
+        
+    </div>
+</div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                        &copy; Copyright 2013, Mema Hacking.<br/>
+                    Powered by <a href="http://sphinx.pocoo.org/">Sphinx</a> 7.2.6.<br/>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+                <a href="#">Back to top</a>
+                
+                    <br/>
+                    
+  <a href="../../_sources/docs/re/overview.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+                
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46672635-1', 'libdrc.org');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>

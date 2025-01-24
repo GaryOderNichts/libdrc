@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Network configuration for Wii U GamePad &lt;-&gt; PC &#8212; libdrc project</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=eeb27264" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.0.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/jquery-1.9.1.min.js"></script>
+    <script src="../_static/js/jquery-fix.js"></script>
+    <script src="../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Developing applications using libdrc" href="usage.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/x-icon" href="../_static/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../_static/favicon.ico" />
+
+  </head><body>
+
+  <div id="navbar" class="navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="../index.html" title="libdrc home">
+          <img class="logo" src="../_static/logo_pixel.svg" width="110" height="40" alt="libdrc" onerror="this.removeAttribute('onerror'); this.src='../_static/logo_pixel.png'" />
+        </a>
+        
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            <li ><a href="../download.html">Download</a></li>
+            
+            <li ><a href="../examples.html">Examples</a></li>
+            
+            <li class="active"><a href="index.html">Documentation</a></li>
+            
+            <li ><a href="../development.html">Development</a></li>
+            
+            <li ><a href="../support.html">Support</a></li>
+            
+            
+          </ul>
+
+          
+        </div>
+    </div>
+  </div>
+
+<div id="overall">
+<div class="container">
+    <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Network configuration for Wii U GamePad &lt;-&gt; PC</a><ul>
+<li><a class="reference internal" href="#required-hardware">Required hardware</a></li>
+<li><a class="reference internal" href="#linux-kernel-patch">Linux kernel patch</a></li>
+<li><a class="reference internal" href="#pairing-the-wii-u-gamepad-with-a-computer">Pairing the Wii U GamePad with a computer</a></li>
+<li><a class="reference internal" href="#setting-up-the-wi-fi-access-point">Setting up the Wi-Fi access point</a></li>
+<li><a class="reference internal" href="#starting-a-dhcp-server">Starting a DHCP server</a></li>
+</ul>
+</li>
+</ul>
+<div class="row text-right">
+    <a href="installation.html" class="btn btn-default"
+        title="Previous Chapter: Installation"><i class="fa fa-arrow-left"></i> Installation</a>
+    <a href="usage.html" class="btn btn-default"
+        title="Next Chapter: Developing applications using libdrc">Developing applications using libdrc <i class="fa fa-arrow-right"></i> </a>
+</div>
+  <a href="../_sources/docs/network.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+<form action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+    </div>
+        <div class="col-md-9">
+            
+  <section id="network-configuration-for-wii-u-gamepad-pc">
+<h1>Network configuration for Wii U GamePad &lt;-&gt; PC<a class="headerlink" href="#network-configuration-for-wii-u-gamepad-pc" title="Link to this heading">¶</a></h1>
+<p>The Wii U GamePad communicates with other devices via the use of a slightly
+obfuscated version of Wi-Fi 802.11n and WPA2 AES-CCMP. Luckily, the required
+modifications for support of this obfuscated Wi-Fi protocol can be applied in
+userland without any kernel modification.</p>
+<p>Using libdrc to communicate with a Wii U GamePad however also requires the host
+computer to get some information from its Wi-Fi interface which is not exported
+by default on Linux. For this purpose, a kernel module needs to be built and
+loaded on the machine to provide the required information.</p>
+<section id="required-hardware">
+<h2>Required hardware<a class="headerlink" href="#required-hardware" title="Link to this heading">¶</a></h2>
+<p>Connecting a Wii U GamePad to a computer requires compatible Wi-Fi hardware.
+Any Wi-Fi NIC that can create access points on 5GHz 802.11 channels could
+potentially work. In practice, the following drivers/NICs were tested:</p>
+<ul class="simple">
+<li><p>rt2800usb: works with Linux &gt;= 3.12</p></li>
+<li><p>ath9k/carl9170: works with some caveats (communication might desync more
+often because of a TSF drifting issue)</p></li>
+</ul>
+</section>
+<section id="linux-kernel-patch">
+<h2>Linux kernel patch<a class="headerlink" href="#linux-kernel-patch" title="Link to this heading">¶</a></h2>
+<p>A very simple Linux kernel patch is required to export the Wi-Fi NIC <em>Time
+Synchronization Function</em> (TSF) to userland. A patched version of the
+<code class="docutils literal notranslate"><span class="pre">mac80211</span></code> Linux module can be found on the <code class="docutils literal notranslate"><span class="pre">memahaxx/drc-mac80211</span></code>
+repository. It is based on Linux 3.12.3 but the patch should apply cleanly to
+most recent Linux versions (e.g. Ubuntu &gt; 13.10).</p>
+<p>To check if the patched module is being used, try:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>test -f /sys/class/net/$WLANIFACE/tsf &amp;&amp; echo ok
+</pre></div>
+</div>
+</section>
+<section id="pairing-the-wii-u-gamepad-with-a-computer">
+<h2>Pairing the Wii U GamePad with a computer<a class="headerlink" href="#pairing-the-wii-u-gamepad-with-a-computer" title="Link to this heading">¶</a></h2>
+<p>There are two methods to pair a GamePad with a computer:</p>
+<ul>
+<li><p>Use a GamePad that has previously paired with a Wii U console. Connect the
+computer in client mode to the Wii U console to do the WPS negotiation and
+obtain the same details.</p>
+<ol class="arabic">
+<li><p>Download and build <code class="docutils literal notranslate"><span class="pre">memahaxx/drc-hostap</span></code>. Make sure <code class="docutils literal notranslate"><span class="pre">CONFIG_WPS</span></code> and
+<code class="docutils literal notranslate"><span class="pre">CONFIG_TENDONIN</span></code> are enabled for both hostapd and wpa_supplicant.
+Ensure that no other program (e.g. a system <code class="docutils literal notranslate"><span class="pre">wpa_supplicant</span></code> or
+<code class="docutils literal notranslate"><span class="pre">NetworkManager</span></code> is currently managing the target interface <code class="docutils literal notranslate"><span class="pre">wlanX</span></code>).</p></li>
+<li><p>Make a new config <code class="docutils literal notranslate"><span class="pre">get_psk.conf</span></code> file consisting of these two lines:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ctrl_interface</span><span class="o">=/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">wpa_supplicant_drc</span>
+<span class="n">update_config</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+<li><p>In a terminal, execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">./</span><span class="n">wpa_supplicant</span> <span class="o">-</span><span class="n">Dnl80211</span> <span class="o">-</span><span class="n">i</span> <span class="n">wlanX</span> <span class="o">-</span><span class="n">c</span> <span class="n">get_psk</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">wlanX</span></code> with the correct network interface.</p>
+</li>
+<li><p>In a separate terminal, execute:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">./</span><span class="n">wpa_cli</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">wpa_supplicant_drc</span>
+</pre></div>
+</div>
+</li>
+<li><p>Press the sync button twice on your Wii U console.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">wpa_cli</span></code>, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scan</span>
+</pre></div>
+</div>
+</li>
+<li><p>Once you see <code class="docutils literal notranslate"><span class="pre">&lt;3&gt;CTRL-EVENT-SCAN-RESULTS</span></code> type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scan_results</span>
+</pre></div>
+</div>
+</li>
+<li><p>On the returned list, you should see an entry with an SSID along the lines
+of <code class="docutils literal notranslate"><span class="pre">WiiUAABBCCDDEEFF_STA1</span></code>. Take a note of the BSSID for this access
+point.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">wpa_cli</span></code>, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wps_pin</span> <span class="n">BSSID</span> <span class="n">PIN</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">BSSID</span></code> is the BSSID you noted in the previous step, and <code class="docutils literal notranslate"><span class="pre">PIN</span></code>
+is the PIN you calculated from the <a class="reference external" href="http://libdrc.org/docs/re/wifi.html#pairing">Pairing information</a>.</p>
+</li>
+<li><p>You should see some output, including <code class="docutils literal notranslate"><span class="pre">&lt;3&gt;WPS-CRED-RECEIVED</span></code> followed
+by <code class="docutils literal notranslate"><span class="pre">&lt;3&gt;WPS-SUCCESS</span></code>.</p></li>
+<li><p>Ctrl+C <code class="docutils literal notranslate"><span class="pre">wpa_supplicant</span></code>.</p></li>
+<li><p>To see your PSK, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="n">get_psk</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+<li><p>Have a computer host WPS and sync a GamePad directly with it. TODO: write
+instructions for this method.</p></li>
+</ul>
+</section>
+<section id="setting-up-the-wi-fi-access-point">
+<h2>Setting up the Wi-Fi access point<a class="headerlink" href="#setting-up-the-wi-fi-access-point" title="Link to this heading">¶</a></h2>
+<p>First of all, build the patched hostapd version available from
+<code class="docutils literal notranslate"><span class="pre">memahaxx/drc-hostap</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">bitbucket</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">memahaxx</span><span class="o">/</span><span class="n">drc</span><span class="o">-</span><span class="n">hostap</span>
+<span class="n">cd</span> <span class="n">drc</span><span class="o">-</span><span class="n">hostap</span>
+<span class="n">cp</span> <span class="n">conf</span><span class="o">/</span><span class="n">hostapd</span><span class="o">.</span><span class="n">config</span> <span class="n">hostapd</span><span class="o">/.</span><span class="n">config</span>
+<span class="n">cd</span> <span class="n">hostapd</span>
+<span class="n">make</span> <span class="o">-</span><span class="n">j4</span>
+</pre></div>
+</div>
+<p>Adapt the example configuration file from <code class="docutils literal notranslate"><span class="pre">conf/wiiu_ap_normal.conf</span></code>:</p>
+<ul class="simple">
+<li><p>Change the network interface name</p></li>
+<li><p>Change the network SSID</p></li>
+<li><p>Change the PSK used for the network WPA2 security</p></li>
+</ul>
+<p>Stop anything that might conflict with hostapd (for example, NetworkManager is
+a known offender unless configured specifically to avoid this). Then start the
+access point:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="o">./</span><span class="n">hostapd</span> <span class="o">-</span><span class="n">dd</span> <span class="o">../</span><span class="n">conf</span><span class="o">/</span><span class="n">wiiu_ap_normal</span><span class="o">.</span><span class="n">conf</span>
+</pre></div>
+</div>
+<p>If everything worked well, hostapd should be waiting for devices to connect
+instead of exiting immediately.</p>
+<p>Make sure that no network interface is using the 192.168.1.0/24 network (it is
+used for communication with the GamePad), then configure the interface:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sudo ip a a 192.168.1.10/24 dev $IFACE
+sudo ip l set mtu 1800 dev $IFACE
+</pre></div>
+</div>
+</section>
+<section id="starting-a-dhcp-server">
+<h2>Starting a DHCP server<a class="headerlink" href="#starting-a-dhcp-server" title="Link to this heading">¶</a></h2>
+<p>The GamePad uses DHCP to get an IP address from the Wii U or the PC it is
+connected to. This IP address should always be 192.168.1.11. Any simple DHCP
+server should work, but we recommend using <a class="reference external" href="https://github.com/ITikhonov/netboot">netboot</a>, a very simple,
+self-contained DHCP server.</p>
+<p>Using netboot, the following command line should work (with the propre MAC
+address of the GamePad):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">netboot</span> <span class="mf">192.168.1.255</span> <span class="mf">192.168.1.10</span> <span class="mf">192.168.1.11</span> <span class="n">aa</span><span class="o">-</span><span class="n">bb</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">dd</span><span class="o">-</span><span class="n">ee</span><span class="o">-</span><span class="n">ff</span>
+</pre></div>
+</div>
+<p>From there, when powering on the GamePad, it should get an IP from netboot and
+start sending packets to the computer. Using libdrc demos should work.</p>
+</section>
+</section>
+
+
+        </div>
+          
+        
+            <div class="row text-right">
+    <a href="installation.html" class="btn btn-default"
+        title="Previous Chapter: Installation"><i class="fa fa-arrow-left"></i> Installation</a>
+    <a href="usage.html" class="btn btn-default"
+        title="Next Chapter: Developing applications using libdrc">Developing applications using libdrc <i class="fa fa-arrow-right"></i> </a>
+</div>
+        
+    </div>
+</div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                        &copy; Copyright 2013, Mema Hacking.<br/>
+                    Powered by <a href="http://sphinx.pocoo.org/">Sphinx</a> 7.2.6.<br/>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+                <a href="#">Back to top</a>
+                
+                    <br/>
+                    
+  <a href="../_sources/docs/network.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+                
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46672635-1', 'libdrc.org');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>

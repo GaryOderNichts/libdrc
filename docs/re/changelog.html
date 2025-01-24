@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DRC Firmware Changelog &#8212; libdrc project</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=eeb27264" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.0.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/jquery-1.9.1.min.js"></script>
+    <script src="../../_static/js/jquery-fix.js"></script>
+    <script src="../../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Development" href="../../development.html" />
+    <link rel="prev" title="Settings EEPROM structure" href="uic-eeprom.html" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/x-icon" href="../../_static/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../../_static/favicon.ico" />
+
+  </head><body>
+
+  <div id="navbar" class="navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="../../index.html" title="libdrc home">
+          <img class="logo" src="../../_static/logo_pixel.svg" width="110" height="40" alt="libdrc" onerror="this.removeAttribute('onerror'); this.src='../../_static/logo_pixel.png'" />
+        </a>
+        
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            <li ><a href="../../download.html">Download</a></li>
+            
+            <li ><a href="../../examples.html">Examples</a></li>
+            
+            <li class="active"><a href="../index.html">Documentation</a></li>
+            
+            <li ><a href="../../development.html">Development</a></li>
+            
+            <li ><a href="../../support.html">Support</a></li>
+            
+            
+          </ul>
+
+          
+        </div>
+    </div>
+  </div>
+
+<div id="overall">
+<div class="container">
+    <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">DRC Firmware Changelog</a><ul>
+<li><a class="reference internal" href="#version-17080114">2013-10-01 - version 17080114</a><ul>
+<li><a class="reference internal" href="#blobs">Blobs</a></li>
+<li><a class="reference internal" href="#version-strings">Version strings</a></li>
+<li><a class="reference internal" href="#new-modules">New modules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#version-151e0113">2013-04-26 - version 151e0113</a><ul>
+<li><a class="reference internal" href="#id1">Blobs</a></li>
+<li><a class="reference internal" href="#id2">Version strings</a></li>
+<li><a class="reference internal" href="#id3">New modules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#version-15060113">2012-10-28 - version 15060113</a><ul>
+<li><a class="reference internal" href="#id4">Blobs</a></li>
+<li><a class="reference internal" href="#id5">Version strings</a></li>
+<li><a class="reference internal" href="#id6">New modules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#version-14060113">2012-10-26 - version 14060113</a><ul>
+<li><a class="reference internal" href="#id7">Blobs</a></li>
+<li><a class="reference internal" href="#id8">Version strings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="row text-right">
+    <a href="uic-eeprom.html" class="btn btn-default"
+        title="Previous Chapter: Settings EEPROM structure"><i class="fa fa-arrow-left"></i> Settings EEPROM structure</a>
+    <a href="../../development.html" class="btn btn-default"
+        title="Next Chapter: Development">Development <i class="fa fa-arrow-right"></i> </a>
+</div>
+  <a href="../../_sources/docs/re/changelog.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+<form action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+    </div>
+        <div class="col-md-9">
+            
+  <section id="drc-firmware-changelog">
+<h1>DRC Firmware Changelog<a class="headerlink" href="#drc-firmware-changelog" title="Link to this heading">¶</a></h1>
+<section id="version-17080114">
+<h2>2013-10-01 - version 17080114<a class="headerlink" href="#version-17080114" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Shipped in system update</dt><dd><p>4.0.0</p>
+</dd>
+<dt>NUS version number</dt><dd><p>5896</p>
+</dd>
+</dl>
+<section id="blobs">
+<h3>Blobs<a class="headerlink" href="#blobs" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>SHA1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LVC_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">01000000</span></code></p></td>
+<td><p>682872</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">23f214b06851496fcaa101588a9191a59b459dbc</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WIFI</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>250790</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">e1b33915f736b25a1619fa905869d5962d264db2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ERR_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>441688</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">527b464c9a28ca3a4bfd8ca8ef21904a59835e56</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UMI_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">26050051</span></code></p></td>
+<td><p>28351</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10273a7b3c5f0c10fc1d659fafb00dbd6ea2a673</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IMG_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>1428246</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a38cc715a160d568a0583aed537719c74474f85d</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="version-strings">
+<h3>Version strings<a class="headerlink" href="#version-strings" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Wi-Fi firmware version</dt><dd><p>4.219.217.0 (built on 2013-01-24)</p>
+</dd>
+</dl>
+</section>
+<section id="new-modules">
+<h3>New modules<a class="headerlink" href="#new-modules" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added support for <em>Wii mode</em> with one new application, <code class="docutils literal notranslate"><span class="pre">aplmain_wiiactive</span></code>
+and one new service, <code class="docutils literal notranslate"><span class="pre">sc_wii</span></code>.</p></li>
+<li><p>Added support for <em>Background mode</em> with one new application,
+<code class="docutils literal notranslate"><span class="pre">aplmain_background</span></code> and one new service, <code class="docutils literal notranslate"><span class="pre">sc_cmd_background</span></code>.</p></li>
+<li><p>Added a driver for another LCD panel from Panasonic: <code class="docutils literal notranslate"><span class="pre">lcd_mc838985</span></code>.</p></li>
+<li><p>Added a driver for another I2C controller: <code class="docutils literal notranslate"><span class="pre">i2c_samsung</span></code>. Because the
+previous I2C driver was Renesas specific, it has been made generic and the
+Renesas driver was moved to the new <code class="docutils literal notranslate"><span class="pre">i2c_renesas</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="version-151e0113">
+<h2>2013-04-26 - version 151e0113<a class="headerlink" href="#version-151e0113" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Shipped in system update</dt><dd><p>3.0.0</p>
+</dd>
+<dt>NUS version number</dt><dd><p>5406</p>
+</dd>
+</dl>
+<section id="id1">
+<h3>Blobs<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>SHA1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LVC_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">01000000</span></code></p></td>
+<td><p>641872</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">48f5fee536de76e3349d79026ae64be2e19c10f9</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WIFI</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>250790</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">e1b33915f736b25a1619fa905869d5962d264db2</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ERR_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>441688</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">527b464c9a28ca3a4bfd8ca8ef21904a59835e56</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UMI_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2500004b</span></code></p></td>
+<td><p>28108</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bcc44dbe7facb5db05b425840d33bd1e237ef65d</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IMG_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>1396230</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">829c4ad1d0c0fcac811f6a502e1ca4cd09d77b0a</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id2">
+<h3>Version strings<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Wi-Fi firmware version</dt><dd><p>4.219.217.0 (built on 2013-01-24)</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h3>New modules<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>None!</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="version-15060113">
+<h2>2012-10-28 - version 15060113<a class="headerlink" href="#version-15060113" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Shipped in system update</dt><dd><p>2.0.0</p>
+</dd>
+<dt>NUS version number</dt><dd><p>5382</p>
+</dd>
+</dl>
+<section id="id4">
+<h3>Blobs<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>SHA1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LVC_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">01000000</span></code></p></td>
+<td><p>637576</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">97c4abd91b5a4387996a23f42143a25b77fa0548</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WIFI</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>250761</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8655b16e55543b985a86308abc608ab0b14472e3</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ERR_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>442720</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">b2a23163ea148f911258961cb98b6d619bd44cb8</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UMI_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">23000044</span></code></p></td>
+<td><p>27567</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">84ffaf5b8a88713f71edc9c292276fca1b9f06f4</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IMG_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>1396230</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">829c4ad1d0c0fcac811f6a502e1ca4cd09d77b0a</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id5">
+<h3>Version strings<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Wi-Fi firmware version</dt><dd><p>4.219.205.0 (built on 2012-09-19)</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h3>New modules<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">aplmain_wowlsetting</span></code> to configure Wake On WLAN settings. Not sure
+how/when it is actually used.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="version-14060113">
+<h2>2012-10-26 - version 14060113<a class="headerlink" href="#version-14060113" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Shipped in system update</dt><dd><p>None, initial release.</p>
+</dd>
+<dt>NUS version number</dt><dd><p>5126</p>
+</dd>
+</dl>
+<section id="id7">
+<h3>Blobs<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>SHA1</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LVC_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">01000000</span></code></p></td>
+<td><p>612964</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">f270e4660461ac39d209f90933e4fd871482d4a0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">WIFI</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>250550</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">44f7f2a92e18df6e4169cdd5cbfb738f80ea9280</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ERR_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>442720</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">b2a23163ea148f911258961cb98b6d619bd44cb8</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">UMI_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1f000040</span></code></p></td>
+<td><p>26946</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8ff11a15244e5a051fa652cb67cab3b2dba91fe3</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IMG_</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">00000000</span></code></p></td>
+<td><p>1396230</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7e6310dc97a17db2667a4d535cecec3d18972f4d</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id8">
+<h3>Version strings<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Wi-Fi firmware version</dt><dd><p>4.219.194.0 (built on 2012-06-25)</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+
+
+        </div>
+          
+        
+            <div class="row text-right">
+    <a href="uic-eeprom.html" class="btn btn-default"
+        title="Previous Chapter: Settings EEPROM structure"><i class="fa fa-arrow-left"></i> Settings EEPROM structure</a>
+    <a href="../../development.html" class="btn btn-default"
+        title="Next Chapter: Development">Development <i class="fa fa-arrow-right"></i> </a>
+</div>
+        
+    </div>
+</div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                        &copy; Copyright 2013, Mema Hacking.<br/>
+                    Powered by <a href="http://sphinx.pocoo.org/">Sphinx</a> 7.2.6.<br/>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+                <a href="#">Back to top</a>
+                
+                    <br/>
+                    
+  <a href="../../_sources/docs/re/changelog.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+                
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46672635-1', 'libdrc.org');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>

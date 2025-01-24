@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GamePad boot process &#8212; libdrc project</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=eeb27264" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.0.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/jquery-1.9.1.min.js"></script>
+    <script src="../../_static/js/jquery-fix.js"></script>
+    <script src="../../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Wi-Fi Peculiarities" href="wifi.html" />
+    <link rel="prev" title="Overview of the internal workings" href="overview.html" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/x-icon" href="../../_static/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../../_static/favicon.ico" />
+
+  </head><body>
+
+  <div id="navbar" class="navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="../../index.html" title="libdrc home">
+          <img class="logo" src="../../_static/logo_pixel.svg" width="110" height="40" alt="libdrc" onerror="this.removeAttribute('onerror'); this.src='../../_static/logo_pixel.png'" />
+        </a>
+        
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            <li ><a href="../../download.html">Download</a></li>
+            
+            <li ><a href="../../examples.html">Examples</a></li>
+            
+            <li class="active"><a href="../index.html">Documentation</a></li>
+            
+            <li ><a href="../../development.html">Development</a></li>
+            
+            <li ><a href="../../support.html">Support</a></li>
+            
+            
+          </ul>
+
+          
+        </div>
+    </div>
+  </div>
+
+<div id="overall">
+<div class="container">
+    <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">GamePad boot process</a><ul>
+<li><a class="reference internal" href="#on-chip-bootloader">On-chip bootloader</a></li>
+<li><a class="reference internal" href="#secondary-bootloader">Secondary bootloader</a><ul>
+<li><a class="reference internal" href="#on-flash-volume-header">On-Flash volume header</a></li>
+<li><a class="reference internal" href="#volume-header-selection-process">Volume header selection process</a></li>
+<li><a class="reference internal" href="#lvc-firmware-loading-process">LVC firmware loading process</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lvc-firmware">LVC firmware</a><ul>
+<li><a class="reference internal" href="#image-resources">Image resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="row text-right">
+    <a href="overview.html" class="btn btn-default"
+        title="Previous Chapter: Overview of the internal workings"><i class="fa fa-arrow-left"></i> Overview of the internal workings</a>
+    <a href="wifi.html" class="btn btn-default"
+        title="Next Chapter: Wi-Fi Peculiarities">Wi-Fi Peculiarities <i class="fa fa-arrow-right"></i> </a>
+</div>
+  <a href="../../_sources/docs/re/boot.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+<form action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+    </div>
+        <div class="col-md-9">
+            
+  <section id="gamepad-boot-process">
+<h1>GamePad boot process<a class="headerlink" href="#gamepad-boot-process" title="Link to this heading">¶</a></h1>
+<p>This page describes the boot process of the GamePad and the initialization of
+all the major devices.</p>
+<section id="on-chip-bootloader">
+<h2>On-chip bootloader<a class="headerlink" href="#on-chip-bootloader" title="Link to this heading">¶</a></h2>
+<p>The DRC-WUP SoC most likely contains some kind of on-chip bootloader whose role
+is to load the secondary boot loader from the upgradable Flash. The first 4
+bytes on the SPI Flash contain the size of the bootloader (<code class="docutils literal notranslate"><span class="pre">N</span></code>) as a little
+endian 32 bit integer. The bootloader itself is stored at offset 4 on the
+Flash, just after the size, and has the following structure:</p>
+<ul class="simple">
+<li><p>The first 64 bytes are the interrupt vectors and will be loaded at address 0
+in RAM.</p></li>
+<li><p>The next <code class="docutils literal notranslate"><span class="pre">N</span></code> bytes are the bootloader code and are loaded at address
+<code class="docutils literal notranslate"><span class="pre">0x3F0000</span> <span class="pre">==</span> <span class="pre">RAM_SIZE</span> <span class="pre">-</span> <span class="pre">64K</span></code>.</p></li>
+</ul>
+<p>The entry point of this bootloader is the reset vector at address 0, which
+commonly jumps to some code based at <code class="docutils literal notranslate"><span class="pre">0x3F0000</span></code>.</p>
+</section>
+<section id="secondary-bootloader">
+<h2>Secondary bootloader<a class="headerlink" href="#secondary-bootloader" title="Link to this heading">¶</a></h2>
+<p>The role of the secondary bootloader is to select which version of the firmware
+on the Flash to run, then parse the on-Flash volume header to find and load
+the code to memory before executing it.</p>
+<section id="on-flash-volume-header">
+<h3>On-Flash volume header<a class="headerlink" href="#on-flash-volume-header" title="Link to this heading">¶</a></h3>
+<p>Each version of the firmware on the Flash stores several blobs, which are
+described by a very simple data structure found on the Flash:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">struct</span> <span class="n">BlobPointer</span> <span class="p">{</span>
+    <span class="n">le32</span> <span class="n">offset</span><span class="p">;</span>  <span class="o">//</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">base</span> <span class="n">of</span> <span class="n">the</span> <span class="n">data</span> <span class="n">structure</span>
+    <span class="n">le32</span> <span class="n">length</span><span class="p">;</span>
+    <span class="n">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+    <span class="n">le32</span> <span class="n">version</span><span class="p">;</span>  <span class="o">//</span> <span class="mi">0</span> <span class="n">where</span> <span class="n">it</span> <span class="n">doesn</span><span class="s1">&#39;t make sense</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The first of these blobs, named <code class="docutils literal notranslate"><span class="pre">INDX</span></code>, represents the volume header itself.
+To get the number of blobs to check for, use <code class="docutils literal notranslate"><span class="pre">INDX.length</span> <span class="pre">/</span> <span class="pre">16</span></code>.</p>
+<p>A few known blob names:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">INDX</span></code> - the volume header itself</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VER_</span></code> - version of the firmware</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LVC_</span></code> - code for the DRC-WUP System on Chip (ARM9)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UMI_</span></code> - code for the UIC-WUP Processor (STM8)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">WIFI</span></code> - code for the Wi-Fi dongle (Cortex-M3)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ERR_</span></code> - image to display on panic</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IMG_</span></code> - general image resources</p></li>
+</ul>
+</section>
+<section id="volume-header-selection-process">
+<h3>Volume header selection process<a class="headerlink" href="#volume-header-selection-process" title="Link to this heading">¶</a></h3>
+<p>The SPL first interrogates the UIC to know if a debugging device is present on
+the extension port. If it is, the SPL will load data from the volume header at
+address <code class="docutils literal notranslate"><span class="pre">0x1C00000</span></code>, which is the service firmware used for diagnostics and
+repairs.</p>
+<p>At address <code class="docutils literal notranslate"><span class="pre">0xF000</span></code> on the Flash, a byte is stored that represents the
+version of the firmware to load. If it is 0, the SPL will load data from the
+volume header at address <code class="docutils literal notranslate"><span class="pre">0x100000</span></code>. If it is 1, the SPL will load data from
+the volume header at address <code class="docutils literal notranslate"><span class="pre">0x500000</span></code>.</p>
+</section>
+<section id="lvc-firmware-loading-process">
+<h3>LVC firmware loading process<a class="headerlink" href="#lvc-firmware-loading-process" title="Link to this heading">¶</a></h3>
+<p>TODO</p>
+</section>
+</section>
+<section id="lvc-firmware">
+<h2>LVC firmware<a class="headerlink" href="#lvc-firmware" title="Link to this heading">¶</a></h2>
+<p>TODO: when is WIFI booted?</p>
+<section id="image-resources">
+<h3>Image resources<a class="headerlink" href="#image-resources" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ERR_</span></code> blob contains a 854x516 RGBA image encoded using a color palette.
+The beginning of the blob contains a 1024 byte colormap (256 x 4 x 1 byte, for
+red, green, blue and alpha). Right after the palette (at offset <code class="docutils literal notranslate"><span class="pre">0x400</span></code>)
+starts the pixel raster data. The pixels are saved row-major with 8 bit-
+per-pixel (because it uses a 8-bit colormap). Each row is padded with two bits
+of zero, so that the row length is a multiple of four (bmp does that too).
+Basically just a bmp file, stripped of all its enconding info.</p>
+<p>The first 480 rows of the <code class="docutils literal notranslate"><span class="pre">ERR_</span></code> image seem to contain the background image,
+while the last 36 rows seem to contains bitmaps of hexadecimal letters:</p>
+<img alt="../../_images/ERR_.png" src="../../_images/ERR_.png" />
+<p>The <code class="docutils literal notranslate"><span class="pre">IMG_</span></code> blob on the other hand contains multiple images (e.g the nintendo
+logo) saved in a similar fashion but including encoding info (they do not use
+the row padding though).</p>
+</section>
+</section>
+</section>
+
+
+        </div>
+          
+        
+            <div class="row text-right">
+    <a href="overview.html" class="btn btn-default"
+        title="Previous Chapter: Overview of the internal workings"><i class="fa fa-arrow-left"></i> Overview of the internal workings</a>
+    <a href="wifi.html" class="btn btn-default"
+        title="Next Chapter: Wi-Fi Peculiarities">Wi-Fi Peculiarities <i class="fa fa-arrow-right"></i> </a>
+</div>
+        
+    </div>
+</div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                        &copy; Copyright 2013, Mema Hacking.<br/>
+                    Powered by <a href="http://sphinx.pocoo.org/">Sphinx</a> 7.2.6.<br/>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+                <a href="#">Back to top</a>
+                
+                    <br/>
+                    
+  <a href="../../_sources/docs/re/boot.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+                
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46672635-1', 'libdrc.org');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>

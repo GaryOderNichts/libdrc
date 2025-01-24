@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Documentation &#8212; libdrc project</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b20cc3f5" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=eeb27264" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.0.0/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <script src="../_static/documentation_options.js?v=2709fde1"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/jquery-1.9.1.min.js"></script>
+    <script src="../_static/js/jquery-fix.js"></script>
+    <script src="../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Browse examples" href="../examples.html" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/x-icon" href="../_static/favicon.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../_static/favicon.ico" />
+
+  </head><body>
+
+  <div id="navbar" class="navbar-inverse navbar-default ">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="../index.html" title="libdrc home">
+          <img class="logo" src="../_static/logo_pixel.svg" width="110" height="40" alt="libdrc" onerror="this.removeAttribute('onerror'); this.src='../_static/logo_pixel.png'" />
+        </a>
+        
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            <li class="divider-vertical"></li>
+            
+            <li ><a href="../download.html">Download</a></li>
+            
+            <li ><a href="../examples.html">Examples</a></li>
+            
+            <li class="active"><a href="#">Documentation</a></li>
+            
+            <li ><a href="../development.html">Development</a></li>
+            
+            <li ><a href="../support.html">Support</a></li>
+            
+            
+          </ul>
+
+          
+        </div>
+    </div>
+  </div>
+
+<div id="overall">
+<div class="container">
+    <div class="row">
+    <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Documentation</a></li>
+</ul>
+<div class="row text-right">
+    <a href="../examples.html" class="btn btn-default"
+        title="Previous Chapter: Browse examples"><i class="fa fa-arrow-left"></i> Browse examples</a>
+    <a href="installation.html" class="btn btn-default"
+        title="Next Chapter: Installation">Installation <i class="fa fa-arrow-right"></i> </a>
+</div>
+  <a href="../_sources/docs/index.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+<form action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+    </div>
+        <div class="col-md-9">
+            
+  <section id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h1>
+<p>libdrc is a library for application developers who want to use the capabilities
+of the Wii U GamePad in their software. It also provides the ability to
+simulate a Wii U GamePad to communicate with a Wii U.</p>
+<p>It currently runs only on Linux and relies on C++11. A very small C wrapper to
+the library is available in order for non-C++11 programs to use the basic
+features of libdrc.</p>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#system-requirements">System requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#patched-dependencies">Patched dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#building-libdrc">Building libdrc</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="network.html">Network configuration for Wii U GamePad &lt;-&gt; PC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="network.html#required-hardware">Required hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network.html#linux-kernel-patch">Linux kernel patch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network.html#pairing-the-wii-u-gamepad-with-a-computer">Pairing the Wii U GamePad with a computer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network.html#setting-up-the-wi-fi-access-point">Setting up the Wi-Fi access point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="network.html#starting-a-dhcp-server">Starting a DHCP server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Developing applications using libdrc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#using-the-wii-u-gamepad-in-your-application">Using the Wii U GamePad in your application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="re/index.html">Reverse engineering and internal details</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="re/overview.html">Overview of the internal workings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="re/boot.html">GamePad boot process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="re/wifi.html">Wi-Fi Peculiarities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="re/services.html">Network services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="re/hardware.html">DRC Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="re/uic-eeprom.html">Settings EEPROM structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="re/changelog.html">DRC Firmware Changelog</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+        </div>
+          
+        
+    </div>
+</div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                        &copy; Copyright 2013, Mema Hacking.<br/>
+                    Powered by <a href="http://sphinx.pocoo.org/">Sphinx</a> 7.2.6.<br/>
+            </div>
+
+            <div class="col-md-4">
+            </div>
+
+            <div class="col-md-4">
+                <a href="#">Back to top</a>
+                
+                    <br/>
+                    
+  <a href="../_sources/docs/index.rst.txt"
+     rel="nofollow"><i class="fa fa-file-text nostyle"></i> Source of this page</a>
+                
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46672635-1', 'libdrc.org');
+  ga('send', 'pageview');
+</script>
+  </body>
+</html>
