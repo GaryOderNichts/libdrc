@@ -80,18 +80,29 @@ This is a 8 bit value shown below followed by a CRC16.
 +========+============================================+
 | 6 - 7  | Unused/Unset                               |
 +--------+--------------------------------------------+
-| 4 - 5  | Supported connection modes:                |
+| 4 - 5  | Supported connection types:                |
 |        |                                            |
+|        | | 0b00: Wired                              |
 |        | | 0b01: Wireless                           |
-|        | | 0b10: Wired                              |
-|        | | 0b11: Both                               |
+|        | | 0b10: Both                               |
 |        |                                            |
 |        | 0b01 on retail.                            |
 +--------+--------------------------------------------+
-| 2 - 3  | Enables the "DK Menu", if both bits are 0. |
+| 2 - 3  | Production type                            |
+|        |                                            |
+|        | | 0b00: Development                        |
+|        | | 0b01: Mass                               |
+|        |                                            |
+|        | Enables the "DK Menu", if both bits are 0. |
 |        | 0b01 on retail.                            |
 +--------+--------------------------------------------+
-| 0 - 1  | Unknown, 0b01 on retail.                   |
+| 0 - 1  | Shipment status                            |
+|        |                                            |
+|        | | 0b00: Unshipped                          |
+|        | | 0b01: Shipped                            |
+|        |                                            |
+|        | Shows the service menu, if unshipped.      |
+|        | 0b01 on retail.                            |
 +--------+--------------------------------------------+
 
 .. _TP Calibration:
